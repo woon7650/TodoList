@@ -21,12 +21,9 @@ export default {
     methods : {
         addTodo : function(){
             if(this.newTodoItem !== ''){
-                var obj ={completed : false, item : this.newTodoItem}
-                console.log(this.newTodoItem);
-                //localStorage : key,value 형태로 저장(setItem API를 이용하여 localStorage에 저장)
-                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
-                //JSON.stringify : JSP 객체를 string으로 변환 시켜줌
-                this.clearInput();                
+              this.$emit('addTodoItem',this.newTodoItem);
+              //하위에서 발생한 이벤트를 addTodoItem을 통해 상위 컴포넌트로 보냄
+              this.clearInput();                
             }            
         },
         clearInput : function(){
