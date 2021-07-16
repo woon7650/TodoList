@@ -22,6 +22,11 @@ export const store = new Vuex.Store({
     state: {
         todoItems: storage.fetch()//app.vue에 있는 localStorage를 todoItem에 넣음
     },
+    getters : {
+        storedTodoItems(state){
+            return state.todoItems;
+        }
+    },
     mutations : {
         addOneItem(state, todoItem){
             const obj ={completed : false, item : todoItem}

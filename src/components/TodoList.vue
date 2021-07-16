@@ -1,14 +1,14 @@
 <template>
   <div>
     <transition-group name="list" tag="p">
-      <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
+      <li v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
         <!--todoItems에서 key를 이용해서 todoItem에 나열 -->
-        <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted : todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+        <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted : todoItem.completed}" v-on:click="toggleComplete({todoItem, index})"></i>
         <span v-bind:class = "{textCompleted : todoItem.completed}">{{ todoItem.item }}</span>     
         <!--todoItem.completed가 false면 textCompleted x , true면 textCompleted o-->   
         <span class="removeBtn">
           <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-          <i class="fas fa-trash-alt" v-on:click="removeTodo(todoItem, index)"></i>
+          <i class="fas fa-trash-alt" v-on:click="removeTodo({todoItem, index})"></i>
         </span>
       </li>
     </transition-group>
@@ -16,14 +16,26 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   methods :{
-    removeTodo : function(todoItem, index){
-      this.$store.commit('removeOneItem', {todoItem, index});      
-    },
-    toggleComplete : function(todoItem, index){
-      this.$store.commit('toggleComplete', {todoItem, index})
-    }
+    ...mapMutations({//인자 선언없이 암묵적으로 넘겨줌
+      removeTodo: 'removeOneItem',//index, todoItem을 넘겨줌 & 받고 넘기는 인자의 개수는 같아야함
+      //removeTodo : function(todoItem, index){
+      //  this.$store.commit('removeOneItem', {todoItem, index});  
+      toggleComplete: 'toggleComplete'
+      //toggleComplete : function(todoItem, index){
+      //this.$store.commit('toggleComplete', {todoItem, index})
+
+    })
+    
+  },
+  computed :{
+    //todoItems(){
+    //  return this.$store.getters.storedTodoItems;
+    ...mapGetters(['storedTodoItems'])
+    
   }
   
 }
