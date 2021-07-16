@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>    
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleComplete="toggleOneItem"></TodoList>
-    <TodoFooter v-on:clearTodo="clearAllItem"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
   
 </template>
@@ -16,28 +16,30 @@ import TodoFooter from './components/TodoFooter.vue'
 
 
 export default {
+  /*
   
-  data : function(){
+  data(){
     return {
       todoItems : []
     }
   },
   methods:{
-    addOneItem: function(todoItem){
-      var obj ={completed : false, item : todoItem}
+    
+    addOneItem(todoItem){
+      const obj ={completed : false, item : todoItem}
       //localStorage : key,value 형태로 저장(setItem API를 이용하여 localStorage에 저장)
       localStorage.setItem(todoItem, JSON.stringify(obj));
       //JSON.stringify : JSP 객체를 string으로 변환 시켜줌
       this.todoItems.push(obj);
       //화면과 localStorage 동기화
-    },
-    removeOneItem: function(todoItem, index){
+    },    
+    removeOneItem(todoItem, index){
       localStorage.removeItem(todoItem.item);//object의 특정 key에 접근해서 삭제
       this.todoItems.splice(index, 1);
       //splice():특정 index에서 하나 삭제 가능 & 기존 배열 변경
       //slice(): 특정 index를 삭제하고 기존 배열 변경 x
     },
-    toggleOneItem: function(todoItem, index){
+    toggleOneItem(todoItem, index){
       //todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed
       localStorage.removeItem(todoItem.item);
@@ -46,14 +48,16 @@ export default {
       //지운 아이템을 새로운 아이템으로 채움
       //localStorage의 값 변경
     },
-    clearAllItem: function(){
+    clearAllItem(){
       localStorage.clear();
       this.todoItems = [];
-    }    
+    }
+        
   },
-  created : function(){//instance가 생성되자마자 호출됨(created)
+
+  created(){//instance가 생성되자마자 호출됨(created)
     if(localStorage.length > 0){
-      for(var i = 0; i<localStorage.length; i++){
+      for(let i = 0; i<localStorage.length; i++){//반복문 let사용
         //localStorage에서 data를 한번에 가져오는 api가 없음
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
           //localStorage 안에 담기는 data만 담겠다는 뜻
@@ -66,11 +70,12 @@ export default {
       
     }
   },
+  */
   components:{
-    'TodoHeader' : TodoHeader,
-    'TodoInput' : TodoInput,
-    'TodoList' : TodoList,
-    'TodoFooter' : TodoFooter
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter
   }
 
 }
