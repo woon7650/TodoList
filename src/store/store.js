@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import todoApp from './modules/todoApp'
+//import * as getters from './getters'
+//import * as mutations from './mutations'
+
 
 Vue.use(Vuex);
 
-
+/*
 const storage = {//localStorage의 배열을 받아와서 arr에 push
     fetch(){
         const arr = [];
@@ -17,16 +21,29 @@ const storage = {//localStorage의 배열을 받아와서 arr에 push
         return arr;
     }
 }
+*/
 
 export const store = new Vuex.Store({
+    modules:{
+        todoApp
+    }
+    /*
     state: {
         todoItems: storage.fetch()//app.vue에 있는 localStorage를 todoItem에 넣음
     },
+    getters : getters,
+    mutations : mutations
+    */
+    /*
+    move to getters.js
     getters : {
         storedTodoItems(state){
             return state.todoItems;
         }
     },
+    */
+   /*
+   move to mutations.js
     mutations : {
         addOneItem(state, todoItem){
             const obj ={completed : false, item : todoItem}
@@ -52,5 +69,6 @@ export const store = new Vuex.Store({
         }
         
     }
+    */
     
 });
