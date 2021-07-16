@@ -48,7 +48,7 @@ const mutations = {
 
 };
 
-export default{ 
+export default{ //default : 1개의 파일에서 한개만 추출가능
     state,
     getters,
     mutations    
